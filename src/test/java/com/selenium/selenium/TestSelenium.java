@@ -1,7 +1,5 @@
 package com.selenium.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -11,10 +9,20 @@ public class TestSelenium {
         chromeOptions.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
         System.setProperty("webdriver.chrome.driver", "C:\\Javalib\\chromedriver_win32\\chromedriver.exe");
         ChromeDriver driver = new ChromeDriver();
-        driver.get("http://demo.guru99.com/");
-        WebElement element = driver.findElement(By.xpath("//input[@name='emailid']"));
-        element.sendKeys("abc@gmail.com");
-        WebElement button = driver.findElement(By.xpath("//input[@name='btnLogin']"));
-        button.click();
+
+        String baseUrl = "http://demo.guru99.com/test/newtours/";
+        String expectedTitle = "Welcome: Mercury Tours";
+        String actualTitle = "";
+
+        driver.get(baseUrl);
+
+        actualTitle = driver.getTitle();
+
+        if (actualTitle.contentEquals(expectedTitle)) {
+            System.out.println("Test passed!");
+        } else {
+            System.out.println("Test failed");
+        }
+        driver.close();
     }
 }
